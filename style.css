@@ -1,0 +1,309 @@
+*{
+    border:0px;
+    margin:0px;
+    box-sizing: border-box;
+    
+}
+
+body{
+    padding-top:100px;
+    overflow-x: hidden;
+
+}
+
+.nav{
+    width: 100%;
+    height: 100px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    
+   
+    position: fixed;
+    z-index: 100;
+    top:0px;
+}
+
+
+
+.nav img{
+    height: 100px;
+    width: 500px;
+}
+
+
+
+.nav2{
+    width: 60%;
+    
+    color: rgb(150, 152, 156);
+    
+
+}
+
+.nav2 ul{
+    display:flex;
+    justify-content:space-around;
+    align-items: center;
+   
+}
+
+.nav2 ul li{
+    list-style: none;
+    position: relative;
+    
+}
+
+.nav2 ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    transition: all 0.3s ;
+}
+
+.nav2 ul li a:hover {
+
+    color: var(--color-primary);
+}
+
+.dropdown_menu {
+    display: none;
+}
+
+.nav2 ul li:hover .dropdown_menu{
+    display: block;
+    position: absolute;
+    left: -20px;
+    top: 22px;
+    background-color: rgba(0, 0, 0, 0.637)
+}
+
+.nav2 ul li:hover .dropdown_menu ul{
+    display:block;
+    margin: 10px;
+    padding: 8px;
+}
+
+
+.nav2 ul li:hover .dropdown_menu ul li{
+    margin-bottom: 10px;
+    font-size: 15px;
+   
+}
+
+.nav2 .dropdown_menu ul a{
+ 
+    white-space: nowrap;
+}
+
+
+
+
+  .sidebar{
+    position: absolute;
+    left:0px;
+    width:250px;
+    height:100vh;
+    background:#042331;
+    overflow-y: auto;
+    z-index: 10; 
+    
+
+  }
+
+  .sidebar header{
+    font-size:22px;
+    color:white;
+    text-align:center;
+    line-height:70px;
+    margin-top: 30px;
+    line-height: 70px;
+    margin-top: 30px;
+
+  }
+
+  .sidebar ul{
+    position:relative;
+    list-style-type: none;
+   
+  }
+
+  .sidebar ul a i{
+    margin-right: 8px;
+  }
+
+  .sidebar ul a{
+    display:block;
+    height:100%;
+    width:100%;
+    line-height: 65px;
+    font-size:20px;
+    color:white;
+    padding-left:40px;
+    box-sizing:border-box;
+    border-top:1px solid rgba(255,255,255,.1);
+    text-decoration: none;
+    border-bottom: 1px solid black;
+    transition:0.5s ease;
+    margin-right: 3px;
+   
+
+  }
+
+  .sidebar li a:hover {
+    background:rgba(0,0,0,0.7);
+    color:#fff;
+}
+
+  .sidebar ul ul {
+    position: absolute;
+    width: 100%; 
+    left: 0; 
+    top: 65px; 
+    display: none;
+    
+    background-color: #fefefe;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgb(0, 0, 0);
+    z-index: 20;
+    list-style-type: none; 
+    padding: 0;
+}
+
+.sidebar .dropdown a{
+  color: black;
+}
+
+
+
+  .sidebar ul .resource{
+    position:relative;
+  }
+
+  .sidebar ul .resource:hover > ul{
+    display:block;
+  }
+
+.main{
+    height:100px;
+    
+    font-size:20px;
+    margin-left:300px;
+    
+    color: greenyellow;
+    background-color: #129edf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:24px; 
+    width: calc(100% - 250px); 
+    height: 100vh;
+    overflow-y: auto; 
+    
+    
+
+  }
+
+
+  /*****************************************************/
+
+  .testimonial-page{
+    background-color: rgb(31, 31, 31);
+
+}
+.div-testimonial-pg{
+  position: relative;
+  top:-50px;
+    width: 55%;
+    
+    height: 100vh;
+    /* background-color: rgb(133, 195, 249); */
+}
+
+
+.testislider .testi-card{
+    
+  width: 250px;
+
+    height: 400px;
+    margin: auto;
+    padding:40px;
+    border-radius: 8px;
+    position: relative;
+    border: 2px solid rgba(93, 0, 255, 0.5);
+    background-color: #242122;
+}
+
+
+.testi-card .testi-description {
+    font-size: 32px;
+    font-weight: 600;
+    display: block;
+    width: 600px;
+    line-height: 1.6;
+    color: #7a7a7a;
+    margin-left: 100px;
+    margin-top: 10px;
+}
+
+/* .testi-card .testi-footer i{
+  fo
+} */
+
+.testi-footer .fa-rocket {
+  font-size: 30px; /* Adjusts the size of the icon */
+  color: #f39c12; /* Changes the icon color to a gold-like shade */
+  margin: 10px; /* Adds space around the icon */
+  padding: 5px; /* Adds space inside the icon area */
+  display: inline-block; /* Ensures proper alignment with text */
+  vertical-align: middle; /* Aligns icon vertically with text */
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth color and transform transitions */
+}
+
+.testi-footer .fa-rocket:hover {
+  color: #e74c3c; /* Changes icon color on hover */
+  transform: scale(1.2); /* Slightly enlarges the icon on hover */
+}
+
+.testi-footer .testi-image{
+    width:250px;
+    height: 250px;
+    margin-bottom: 30px;
+    
+  
+}
+
+.testi-footer .testi-image img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    
+}
+
+.testi-footer{
+    display: flex;
+    margin-top: 50px;
+
+    gap: 25px;
+}
+
+.testi-footer .about{
+    
+    margin-top: 55px;
+    color: #fff;
+}
+
+.testi-footer .about span{
+  font-size: 25px;
+}
+
+.div-icon i{
+    font-size: 100px;
+    position: absolute;
+    right: 30px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white;
+}

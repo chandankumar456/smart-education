@@ -1,0 +1,16 @@
+# Digital Learning Platform
+
+A web platform designed to improve efficient, effective, and flexible digital learning by providing various educational resources and tools for both students and instructors.
+
+This project aims to enhance digital learning by offering:
+- **Efficient** ways to access study materials, resources, and interactive content.
+- **Effective** learning paths tailored for different subjects and levels.
+- **Flexible** options for both self-paced and instructor-led learning.
+
+
+## Installation
+
+1. **Clone the Repository**  
+   ```bash
+   git clone https://github.com/your-username/team_anonymous
+   cd your-repo-name

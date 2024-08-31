@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Video Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        #video-container {
+            margin-bottom: 20px;
+        }
+        video {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+        }
+        #quiz-popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            z-index: 1000;
+        }
+        #quiz-popup input[type="button"] {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #add-question {
+            margin-top: 20px;
+        }
+        #add-question input, #add-question button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 14px;
+        }
+        #start-video {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Interactive Video Quiz</h1>
+    <div id="video-container">
+        <video id="video" controls>
+            <source src="your-video-file.mp4" type="video/mp4" id="video-source">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div id="quiz-popup">
+        <p id="question-text"></p>
+        <div id="options-container"></div>
+        <input type="button" id="submit-answer" value="Submit Answer">
+    </div>
+
+    <div id="add-question">
+        <h2>Add Your Video and Questions</h2>
+        <input type="file" id="video-file" accept="video/*"><br>
+        <input type="number" id="timestamp" placeholder="Timestamp (in seconds)">
+        <input type="text" id="question" placeholder="Question"><br>
+        <input type="text" class="option-input" placeholder="Option 1">
+        <input type="text" class="option-input" placeholder="Option 2"><br>
+        <input type="text" class="option-input" placeholder="Option 3">
+        <input type="text" class="option-input" placeholder="Option 4"><br>
+        <input type="number" id="correct-option" placeholder="Correct Option Number (1-4)"><br>
+        <button id="add-question-btn">Add Question</button>
+    </div>
+
+    <button id="start-video">Start Video</button>
+
+    <script>
+        const video = document.getElementById('video');
+        const videoSource = document.getElementById('video-source');
+        const quizPopup = document.getElementById('quiz-popup');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const submitAnswerButton = document.getElementById('submit-answer');
+        const addQuestionBtn = document.getElementById('add-question-btn');
+        const videoFileInput = document.getElementById('video-file');
+        const startVideoBtn = document.getElementById('start-video');
+
+        let timestamps = [];
+        let currentQuestionIndex = 0;
+        let videoStarted = false;
+
+        function showQuizPopup() {
+            const questionData = timestamps[currentQuestionIndex];
+            questionText.textContent = questionData.question;
+            optionsContainer.innerHTML = '';
+
+            questionData.options.forEach((option, index) => {
+                const optionLabel = document.createElement('label');
+                optionLabel.textContent = option;
+                const optionInput = document.createElement('input');
+                optionInput.type = 'radio';
+                optionInput.name = 'quiz-option';
+                optionInput.value = index;
+                optionLabel.prepend(optionInput);
+                optionsContainer.appendChild(optionLabel);
+                optionsContainer.appendChild(document.createElement('br'));
+            });
+
+            quizPopup.style.display = 'block';
+            video.pause();
+        }
+
+        function checkAnswer() {
+            const selectedOption = document.querySelector('input[name="quiz-option"]:checked');
+            if (selectedOption && parseInt(selectedOption.value) === timestamps[currentQuestionIndex].correctOption) {
+                alert("Correct! Video will continue.");
+                currentQuestionIndex++;
+                quizPopup.style.display = 'none';
+                video.play();
+            } else {
+                alert("Incorrect. Reviewing content again.");
+                video.currentTime = timestamps[currentQuestionIndex].time - 5; // Rewind 5 seconds
+                quizPopup.style.display = 'none';
+                video.play();
+            }
+        }
+
+        function promptUserAtTime() {
+            // Example prompt - you can customize this according to your needs
+            const userInput = prompt("Please enter your input:");
+            if (userInput !== null && userInput.trim() !== "") {
+                alert("You entered: " + userInput);
+            }
+        }
+
+        video.addEventListener('timeupdate', () => {
+            if (videoStarted && currentQuestionIndex < timestamps.length) {
+                const currentTimestamp = timestamps[currentQuestionIndex].time;
+                
+                if (Math.floor(video.currentTime) === currentTimestamp) {
+                    showQuizPopup();
+                }
+            }
+
+            // Example usage of promptUserAtTime at 15 seconds
+            if (Math.floor(video.currentTime) === 15) {
+                promptUserAtTime();
+            }
+        });
+
+        submitAnswerButton.addEventListener('click', checkAnswer);
+
+        addQuestionBtn.addEventListener('click', () => {
+            const timestamp = parseInt(document.getElementById('timestamp').value);
+            const question = document.getElementById('question').value;
+            const options = Array.from(document.getElementsByClassName('option-input')).map(input => input.value);
+            const correctOption = parseInt(document.getElementById('correct-option').value) - 1;
+
+            timestamps.push({ time: timestamp, question: question, options: options, correctOption: correctOption });
+            alert('Question added successfully!');
+        });
+
+        videoFileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                videoSource.src = fileURL;
+                video.load();
+            }
+        });
+
+        startVideoBtn.addEventListener('click', () => {
+            if (!videoStarted) {
+                videoStarted = true;
+                video.play();
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Traversal Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Graph Traversal Game</h1>
+    <div id="game-container">
+        <canvas id="graphCanvas" width="600" height="400"></canvas>
+        <div class="controls">
+            <button onclick="startBFS()">Start BFS</button>
+            <button onclick="startDFS()">Start DFS</button>
+            <button onclick="resetGraph()">Reset</button>
+        </div>
+        <div id="traversalOutput">Traversal Sequence: </div>
+        <!-- Video Element -->
+        <video id="traversalVideo" width="600" height="300" controls style="display: none;">
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

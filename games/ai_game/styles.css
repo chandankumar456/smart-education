@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 20px;
+}
+
+#game-container {
+    text-align: center;
+}
+
+canvas {
+    border: 1px solid #ddd;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.controls {
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6c63ff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #504fb8;
+}
+
+#traversalOutput {
+    margin-top: 10px;
+    font-weight: bold;
+}

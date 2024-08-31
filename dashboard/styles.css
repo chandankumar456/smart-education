@@ -1,0 +1,120 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #8a2be2, #3b3a66);
+    overflow: hidden;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 900px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.section {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    /* width: 100%;  */
+    height: 200px;
+}
+
+.section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.section:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.section .trending-course .inst-name{
+
+    color: #444;
+    font-weight: 500;
+    margin-top:20px;
+    font-size: 15px;
+
+}
+
+canvas {
+    margin: 20px 0;
+}
+
+.meter-label {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+}
+
+.trending-course img,
+.recently-watched img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trending-course img:hover,
+.recently-watched img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.course-name,
+.resource-name {
+    font-size: 14px;
+    color: #444;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.section .recently-watched p{
+    margin-top: 50px;
+}
+
+.section .recently-watched i{
+    margin-top: 20px;
+}
+
+ /********************************************************/
+
+ 

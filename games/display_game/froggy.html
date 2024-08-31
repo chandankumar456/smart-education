@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Frog Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Flexbox Frog Game</h1>
+    <p>Move the frogs to their lilypads using Flexbox properties!</p>
+
+    <div class="game-container">
+        <div class="pond">
+            <div class="frog"></div>
+            <div class="frog"></div>
+            <div class="frog"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <label for="justify-content">Justify Content:</label>
+        <select id="justify-content">
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+            <option value="space-evenly">space-evenly</option>
+        </select>
+
+        <label for="align-items">Align Items:</label>
+        <select id="align-items">
+            <option value="flex-start">flex-start</option>
+            <option value="center">center</option>
+            <option value="flex-end">flex-end</option>
+            <option value="stretch">stretch</option>
+        </select>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

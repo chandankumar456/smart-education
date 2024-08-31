@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Quiz Creator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #video-container {
+            margin: 20px auto;
+        }
+        .hidden {
+            display: none;
+        }
+        .quiz-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Quiz Creator</h1>
+    
+    <input type="file" id="videoUpload" accept="video/mp4">
+    <button id="loadVideo" class="hidden">Load Video</button>
+
+    <div id="video-container" class="hidden">
+        <video id="videoPlayer" width="640" controls>
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div id="quiz-setup" class="hidden">
+        <h2>Quiz Setup</h2>
+        <form id="quizForm">
+            <label for="timestamp">Timestamp (seconds):</label>
+            <input type="number" id="timestamp" min="0" step="0.1" required>
+            <br>
+            <label for="question">Question:</label>
+            <input type="text" id="question" required>
+            <br>
+            <label for="options">Options (comma-separated):</label>
+            <input type="text" id="options" required>
+            <br>
+            <label for="correctOption">Correct Option (1-based index):</label>
+            <input type="number" id="correctOption" min="1" required>
+            <br>
+            <button type="button" id="addQuestion">Add Question</button>
+        </form>
+        <div id="questionsList"></div>
+        <button id="startQuiz" class="hidden">Start Quiz</button>
+    </div>
+
+    <div id="quiz-container" class="hidden quiz-container">
+        <p id="quizQuestion"></p>
+        <div id="quizOptions"></div>
+    </div>
+
+    <script>
+        document.getElementById('videoUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file && file.type === 'video/mp4') {
+                const videoUrl = URL.createObjectURL(file);
+                document.getElementById('videoPlayer').src = videoUrl;
+                document.getElementById('video-container').classList.remove('hidden');
+                document.getElementById('loadVideo').classList.remove('hidden');
+                document.getElementById('quiz-setup').classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('loadVideo').addEventListener('click', function() {
+            // Initialize quiz setup UI
+            document.getElementById('quiz-setup').classList.remove('hidden');
+        });
+
+        document.getElementById('addQuestion').addEventListener('click', function() {
+            const timestamp = document.getElementById('timestamp').value;
+            const question = document.getElementById('question').value;
+            const options = document.getElementById('options').value.split(',').map(opt => opt.trim());
+            const correctOption = parseInt(document.getElementById('correctOption').value, 10);
+
+            if (timestamp && question && options.length > 0 && correctOption) {
+                const questionsList = document.getElementById('questionsList');
+                const questionItem = document.createElement('div');
+                questionItem.innerHTML = `
+                    <p><strong>Timestamp:</strong> ${timestamp}s</p>
+                    <p><strong>Question:</strong> ${question}</p>
+                    <p><strong>Options:</strong> ${options.join(', ')}</p>
+                    <p><strong>Correct Option:</strong> ${correctOption}</p>
+                `;
+                questionsList.appendChild(questionItem);
+
+                // Add to start quiz button
+                document.getElementById('startQuiz').classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('startQuiz').addEventListener('click', function() {
+            const video = document.getElementById('videoPlayer');
+            const questions = Array.from(document.querySelectorAll('#questionsList div')).map(div => {
+                const [timestamp, question, options, correctOption] = Array.from(div.querySelectorAll('p')).map(p => p.textContent.split(':')[1].trim());
+                return {
+                    timestamp: parseFloat(timestamp),
+                    question,
+                    options: options.split(', '),
+                    correctOption: parseInt(correctOption, 10) - 1
+                };
+            });
+
+            video.addEventListener('timeupdate', function() {
+                const currentTime = video.currentTime;
+                questions.forEach((q, index) => {
+                    if (Math.abs(currentTime - q.timestamp) < 1) {
+                        video.pause();
+                        showQuiz(q);
+                        questions.splice(index, 1); // Remove question once handled
+                    }
+                });
+            });
+        });
+
+        function showQuiz(question) {
+            document.getElementById('quizQuestion').textContent = question.question;
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.addEventListener('click', () => handleAnswer(index, question.correctOption));
+                optionsContainer.appendChild(button);
+            });
+            document.getElementById('quiz-container').classList.remove('hidden');
+        }
+
+        function handleAnswer(selectedIndex, correctIndex) {
+            if (selectedIndex === correctIndex) {
+                alert('Correct! Video will continue.');
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('videoPlayer').play();
+            } else {
+                alert('Incorrect. Try again.');
+                // Optionally handle incorrect answers
+            }
+        }
+    </script>
+</body>
+</html>
